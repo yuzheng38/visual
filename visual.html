@@ -1,111 +1,17 @@
 <!doctype html>
 <html lang="us-en">
 	<head>
-		<title>visual</title>
-		<link rel="stylesheet" href="visual.css">
+		<meta charset="utf-8">
+		<meta name="author" content="jq">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<title>Visual</title>
+		<link rel="stylesheet" href="css/visual.css">
 	</head>
 	<body>
-		<h1>visual</h1>
+		<h1>Visual</h1>
 		<main class="container">
-		
 		</main>
-		<script src="visual_const.js"></script>
-		<script>
-			const visual = JSON.parse(VISUAL);
-			console.dir(visual);
-			const URL_BASE = "https://idm.homedepot.com/assets/image/";
-			const ANCHOR_URL_BASE = "https://www.homedepot.com/p/";
-
-			function create_anchor(anchor) {
-				const img_url = URL_BASE + anchor.img.slice(0, 2) + "/" + anchor.img + ".jpg";
-				const anchor_img = document.createElement("img");
-				anchor_img.src = img_url;
-				anchor_img.alt = anchor.anchor;
-				anchor_img.classList.add("anchor_image");
-
-				const anchor_a = document.createElement("a");
-				anchor_a.href = ANCHOR_URL_BASE + anchor.anchor;
-				anchor_a.appendChild(anchor_img);
-
-				const anchor_div = document.createElement("div");
-				anchor_div.appendChild(anchor_a);
-
-				return anchor_div;
-			}
-
-			function create_rec_img(rec_elem) {
-				const img = document.createElement("img");
-				img.alt = rec_elem.omsid;
-				img.src = URL_BASE + rec_elem.img.slice(0, 2) + "/" + rec_elem.img + ".jpg";
-				img.classList.add("rec_image_elem");
-
-				return img;
-			}
-
-			function create_rec_img_list(rec) {
-				const ul = document.createElement("ul");
-				ul.classList.add("rec_image");
-
-				const img_list = rec.map(i => {
-					const li = document.createElement("li");
-					li.appendChild(create_rec_img(i));
-					ul.appendChild(li);
-				});
-
-				return ul;
-			}
-
-			function create_rec_score(score) {
-				const ul = document.createElement("ul");
-				const color_li = document.createElement("li");
-				color_li.innerHTML = score["color"];
-
-				const shape_li = document.createElement("li");
-				shape_li.innerHTML = score["shape"];
-
-				const style_li = document.createElement("li");
-				style_li.innerHTML = score["style"];
-
-				ul.appendChild(shape_li);
-				ul.appendChild(color_li);
-				ul.appendChild(style_li);
-
-				return ul;
-			}
-
-			function create_rec_list_item(recs_elem) {
-				const div = document.createElement("div");
-				const score_ul = create_rec_score(recs_elem.score);
-				const img_ul = create_rec_img_list(recs_elem.rec);
-				div.appendChild(score_ul);
-				div.appendChild(img_ul);
-				return div;
-			}
-
-			function create_rec_list(recs) {
-				const section = document.createElement("section");
-				console.dir(recs);
-				const recs_ul = recs.map(i => {
-					const div = create_rec_list_item(i);
-					div.classList.add("recs");
-					section.appendChild(div);
-				});
-
-				return section;
-			}
-
-			function test() {
-				var container = document.querySelector(".container");
-				var anchor = create_anchor(visual[0].anchor);
-				container.appendChild(anchor);
-
-				var recs = create_rec_list(visual[0].recs);
-				container.appendChild(recs);
-				
-			}
-
-			window.addEventListener('load', test);
-
-		</script>
+		<script src="js/visual_json.js"></script>
+		<script src="js/visual.js"></script>>
 	</body>
 </html>
